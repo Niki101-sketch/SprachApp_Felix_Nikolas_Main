@@ -1,0 +1,86 @@
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f8f9fa;
+  }
+  
+  /* Cards */
+  .stats-card {
+    padding: 15px;
+    border-radius: 10px;
+    background-color: #f8f9fa;
+    border: 1px solid #e9ecef;
+    margin-bottom: 15px;
+  }
+  
+  .unit-card {
+    padding: 15px;
+    border-radius: 10px;
+    background-color: #fff;
+    border: 1px solid #e9ecef;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    height: 100%;
+  }
+  
+  /* Footer */
+  .footer {
+    margin-top: 50px;
+    padding: 20px 0;
+    background-color: #343a40;
+    color: #fff;
+  }
+  
+  /* Flashcards */
+  .flashcard {
+    perspective: 1000px;
+    height: 300px;
+    margin-bottom: 30px;
+  }
+  
+  .flashcard-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    transition: transform 0.6s;
+    transform-style: preserve-3d;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    border-radius: 10px;
+  }
+  
+  .flashcard-front, .flashcard-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    padding: 20px;
+    border-radius: 10px;
+  }
+  
+  .flashcard-back {
+    transform: rotateY(180deg);
+  }
+  
+  .flipped .flashcard-inner {
+    transform: rotateY(180deg);
+  }
+  
+  .word {
+    font-size: 2rem;
+    font-weight: bold;
+    margin-bottom: 15px;
+  }
+  
+  @media (max-width: 768px) {
+    .flashcard {
+      height: 250px;
+    }
+    
+    .word {
+      font-size: 1.5rem;
+    }
+  }
