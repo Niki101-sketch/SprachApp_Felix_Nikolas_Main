@@ -64,7 +64,7 @@ if (isset($_POST['login'])) {
                         $_SESSION['userid'] = $row[$id_field];
                         
                         // Redirect to success page
-                        header("Location: success2.php");
+                        header("Location: index.php");
                         exit();
                     } else {
                         // Login failed
