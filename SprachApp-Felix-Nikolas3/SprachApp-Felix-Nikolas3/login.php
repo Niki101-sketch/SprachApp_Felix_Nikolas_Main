@@ -17,10 +17,10 @@ if (isset($_POST['login'])) {
             $_SESSION['err'] = "Username or password is empty";
         } else {
             // Database connection settings
-            $servername = "sql108.infinityfree.com";
-            $username = "if0_38905283";
-            $password = "ewgjt0aaksuC";
-            $dbname = "if0_38905283_sprachapp";
+            $servername = "localhost";
+            $username = "root";
+            $password = "";
+            $dbname = "vocabulary_app";
             
             // Create connection
             $conn = new mysqli($servername, $username, $password, $dbname);

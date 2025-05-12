@@ -1,3 +1,30 @@
+<?php
+// Datenbankverbindung
+include 'connectionlocalhost.php';
+
+try {
+    $pdo = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
+    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+} catch(PDOException $e) {
+    die("Verbindung fehlgeschlagen: " . $e->getMessage());
+}
+
+// Units aus der Datenbank laden
+// Hier werden alle Units geladen, später kann nach Gruppe gefiltert werden
+$stmt = $pdo->prepare("
+    SELECT 
+        u.unitid,
+        u.unitname,
+        COUNT(vg.gvocabid) as vocab_count
+    FROM unit u
+    LEFT JOIN vocabgerman vg ON u.unitid = vg.unitid
+    GROUP BY u.unitid, u.unitname
+    ORDER BY u.unitid
+");
+$stmt->execute();
+$units = $stmt->fetchAll(PDO::FETCH_ASSOC);
+?>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -17,13 +44,20 @@
             color: white !important;
             transform: translateY(-3px);
         }
+        .unit-card {
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .unit-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
     </style>
 </head>
 <body>
     <!-- Navigation Bar für Login/Registrieren -->
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container">
-            <a class="navbar-brand" href="#">SprachApp</a>
+            <a class="navbar-brand" href="index.php">SprachApp</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -39,40 +73,37 @@
             </div>
         </div>
     </nav>
+    
     <div class="container mt-4">
-        <h1>Units</h1>
+        <h1>Verfügbare Units</h1>
         
-        <div class="row">
-            <div class="col-md-4">
-                <div class="card">
-                    <div class="card-body">
-                        <h5>Unit 1: Familie</h5>
-                        <p>25 Vokabeln</p>
-                        <a href="karteikarten.php?unit=1" class="btn btn-primary">Start</a>
-                    </div>
-                </div>
+        <?php if (empty($units)): ?>
+            <div class="alert alert-info" role="alert">
+                Zurzeit sind keine Units verfügbar.
             </div>
-            
-            <div class="col-md-4">
-                <div class="card">
-                    <div class="card-body">
-                        <h5>Unit 2: Haus</h5>
-                        <p>30 Vokabeln</p>
-                        <a href="karteikarten.php?unit=2" class="btn btn-primary">Start</a>
+        <?php else: ?>
+            <div class="row">
+                <?php foreach ($units as $unit): ?>
+                    <div class="col-md-4 mb-4">
+                        <div class="card unit-card">
+                            <div class="card-body">
+                                <h5 class="card-title"><?php echo htmlspecialchars($unit['unitname']); ?></h5>
+                                <p class="card-text">
+                                    <?php echo $unit['vocab_count']; ?> Vokabel<?php echo $unit['vocab_count'] != 1 ? 'n' : ''; ?>
+                                </p>
+                                <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                                    <a href="karteikarten.php?unit=<?php echo $unit['unitid']; ?>" class="btn btn-primary">
+                                        <i class="bi bi-play-circle"></i> Start
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                </div>
+                <?php endforeach; ?>
             </div>
-            
-            <div class="col-md-4">
-                <div class="card">
-                    <div class="card-body">
-                        <h5>Unit 3: Schule</h5>
-                        <p>22 Vokabeln</p>
-                        <a href="karteikarten.php?unit=3" class="btn btn-primary">Start</a>
-                    </div>
-                </div>
-            </div>
-        </div>
+        <?php endif; ?>
     </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

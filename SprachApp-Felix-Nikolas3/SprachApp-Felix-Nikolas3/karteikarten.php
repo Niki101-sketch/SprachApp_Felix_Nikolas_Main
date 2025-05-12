@@ -1,6 +1,11 @@
 <?php
+
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
 session_start();
-include 'connection.php';
+
+include 'connectionlocalhost.php';
 
 $unitid = $_GET['unit'];
 $studentid = 1; // Fest für Demo
@@ -57,7 +62,7 @@ $current = $_GET['current'] ?? 0;
     <!-- Navigation Bar für Login/Registrieren -->
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container">
-            <a class="navbar-brand" href="#">SprachApp</a>
+            <a class="navbar-brand" href="index.php">SprachApp</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
