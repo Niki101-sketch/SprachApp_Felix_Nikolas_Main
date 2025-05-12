@@ -1,6 +1,8 @@
 <?php
 // Datenbankverbindung
-include 'connectionlocalhost.php';
+
+//include 'connectionlocalhost.php';
+include 'connection.php';
 
 try {
     $pdo = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
