@@ -98,7 +98,7 @@ $current = $_GET['current'] ?? 0;
             </div>
         <?php else: ?>
             <p>Keine Vokabeln mehr!</p>
-            <a href="einheiten.html" class="btn btn-primary">Zurück</a>
+            <a href="einheiten.php" class="btn btn-primary">Zurück</a>
         <?php endif; ?>
     </div>
 </body>
