@@ -38,8 +38,41 @@ $current = $_GET['current'] ?? 0;
 <head>
     <title>Karteikarten</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+         .nav-item {
+            margin: 0.5rem 0;
+        }
+        .nav-link {
+            border-radius: 0.5rem;
+            transition: all 0.3s;
+        }
+        .nav-link:hover {
+            background-color: #0d6efd;
+            color: white !important;
+            transform: translateY(-3px);
+        }
+    </style>
 </head>
 <body>
+    <!-- Navigation Bar für Login/Registrieren -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container">
+            <a class="navbar-brand" href="#">SprachApp</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto auth-buttons">
+                    <li class="nav-item">
+                        <a href="login.php" class="btn btn-outline-primary">Login</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="registrieren.php" class="btn btn-primary">Registrieren</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
     <div class="container mt-4">
         <h1>Unit <?php echo $unitid; ?></h1>
         
